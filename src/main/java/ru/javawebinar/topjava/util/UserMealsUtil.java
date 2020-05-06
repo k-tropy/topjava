@@ -33,6 +33,7 @@ public class UserMealsUtil {
         for (UserMeal meal : meals) { //counting calories per day
             LocalDate dateForCounting = meal.getDateTime().toLocalDate();
             Integer daysCalories = countingCalories.get(dateForCounting);
+
             if (daysCalories == null) daysCalories = 0;
             daysCalories += meal.getCalories();
             countingCalories.put(dateForCounting, daysCalories);
@@ -40,20 +41,11 @@ public class UserMealsUtil {
 
         List<UserMealWithExcess> retList = new ArrayList<>();
         for (UserMeal meal : meals) {
-            if (meal.getDateTime().toLocalTime().isAfter(startTime) && meal.getDateTime().toLocalTime().isBefore(endTime)) {
-                retList.add(new UserMealWithExcess(
-                        meal.getDateTime(),
-                        meal.getDescription(),
-                        meal.getCalories(),
+            if (TimeUtil.isBetweenHalfOpen(meal.getDateTime().toLocalTime(), startTime, endTime)) {
+                retList.add(new UserMealWithExcess(meal.getDateTime(), meal.getDescription(), meal.getCalories(),
                         (countingCalories.get(meal.getDateTime().toLocalDate()) > caloriesPerDay)));
             }
         }
         return retList;
-    }
-
-
-    public static List<UserMealWithExcess> filteredByStreams(List<UserMeal> meals, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
-        // TODO Implement by streams
-        return null;
     }
 }
