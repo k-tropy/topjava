@@ -16,4 +16,14 @@
         <url-pattern>/users</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>userServlet2</servlet-name>
+        <servlet-class>ru.javawebinar.topjava.web.UserServlet2</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userServlet2</servlet-name>
+        <url-pattern>/users2</url-pattern>
+    </servlet-mapping>
+
 </web-app>
